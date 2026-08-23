@@ -1,0 +1,1718 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>📝 TRY OUT TKA FISIKA SMA/MA</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;900&display=swap" rel="stylesheet">
+    <style>
+        /* ===== RESET & GLOBAL ===== */
+        .bg-animated {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            background: linear-gradient(135deg, #0a0a1a 0%, #1a1a3e 50%, #2d1b69 100%);
+        }
+        .bg-animated::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle at 30% 50%, rgba(108, 99, 255, 0.05) 0%, transparent 50%),
+                radial-gradient(circle at 70% 80%, rgba(255, 101, 132, 0.05) 0%, transparent 50%);
+            animation: bgMove 20s ease-in-out infinite;
+        }
+        @keyframes bgMove {
+            0%, 100% { transform: translate(0, 0) rotate(0deg); }
+            33% { transform: translate(2%, -2%) rotate(1deg); }
+            66% { transform: translate(-2%, 2%) rotate(-1deg); }
+        }
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: #0a0a1a;
+            color: #fff;
+            min-height: 100vh;
+        }
+        .hidden {
+            display: none !important;
+        }
+
+        /* ===== ANIMASI LOGO ATOM ===== */
+        .logo-atom {
+            position: relative;
+            display: inline-block;
+            width: 80px;
+            height: 80px;
+            animation: floatAtom 3s ease-in-out infinite;
+        }
+        .logo-atom .nucleus {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 20px;
+            height: 20px;
+            background: radial-gradient(circle, #FFD93D, #FF6B6B);
+            border-radius: 50%;
+            box-shadow: 0 0 30px rgba(255, 107, 107, 0.6), 0 0 60px rgba(255, 217, 61, 0.3);
+            animation: pulseNucleus 2s ease-in-out infinite;
+            z-index: 2;
+        }
+        .logo-atom .orbit {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            border: 2px solid rgba(0, 210, 255, 0.2);
+            border-radius: 50%;
+            animation: orbitSpin 6s linear infinite;
+        }
+        .logo-atom .orbit-1 {
+            width: 70px;
+            height: 70px;
+            border-color: rgba(0, 210, 255, 0.3);
+            animation-duration: 4s;
+        }
+        .logo-atom .orbit-2 {
+            width: 60px;
+            height: 60px;
+            border-color: rgba(108, 99, 255, 0.3);
+            animation-duration: 5s;
+            animation-direction: reverse;
+        }
+        .logo-atom .orbit-3 {
+            width: 50px;
+            height: 50px;
+            border-color: rgba(255, 101, 132, 0.3);
+            animation-duration: 3s;
+            transform: translate(-50%, -50%) rotate(45deg);
+        }
+        .logo-atom .electron {
+            position: absolute;
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            top: -4px;
+            left: 50%;
+            transform: translateX(-50%);
+            box-shadow: 0 0 15px currentColor;
+        }
+        .logo-atom .electron-1 {
+            background: #00D2FF;
+            color: #00D2FF;
+            animation: electronMove 4s linear infinite;
+        }
+        .logo-atom .electron-2 {
+            background: #6C63FF;
+            color: #6C63FF;
+            animation: electronMove 5s linear infinite reverse;
+        }
+        .logo-atom .electron-3 {
+            background: #FF6584;
+            color: #FF6584;
+            animation: electronMove 3s linear infinite;
+        }
+        @keyframes orbitSpin {
+            0% { transform: translate(-50%, -50%) rotate(0deg); }
+            100% { transform: translate(-50%, -50%) rotate(360deg); }
+        }
+        @keyframes electronMove {
+            0% { transform: translateX(-50%) rotate(0deg) translateX(35px) rotate(0deg); }
+            100% { transform: translateX(-50%) rotate(360deg) translateX(35px) rotate(-360deg); }
+        }
+        @keyframes pulseNucleus {
+            0%, 100% { transform: translate(-50%, -50%) scale(1); box-shadow: 0 0 30px rgba(255, 107, 107, 0.6), 0 0 60px rgba(255, 217, 61, 0.3); }
+            50% { transform: translate(-50%, -50%) scale(1.2); box-shadow: 0 0 50px rgba(255, 107, 107, 0.9), 0 0 80px rgba(255, 217, 61, 0.5); }
+        }
+        @keyframes floatAtom {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-8px); }
+        }
+
+        /* ===== HALAMAN IDENTITAS ===== */
+        #halamanIdentitas {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px;
+            position: relative;
+            z-index: 1;
+        }
+        .card-identitas {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 24px;
+            padding: 40px 35px;
+            max-width: 480px;
+            width: 100%;
+            backdrop-filter: blur(20px);
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+            animation: scaleUp 0.5s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        .card-identitas::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle at 30% 40%, rgba(108, 99, 255, 0.03) 0%, transparent 60%);
+            animation: cardGlow 8s ease-in-out infinite;
+            pointer-events: none;
+        }
+        @keyframes cardGlow {
+            0%, 100% { transform: translate(0, 0); }
+            50% { transform: translate(5%, 5%); }
+        }
+        .card-identitas .logo {
+            text-align: center;
+            margin-bottom: 20px;
+            position: relative;
+            z-index: 1;
+        }
+        .card-identitas .logo .logo-atom {
+            width: 80px;
+            height: 80px;
+        }
+        .card-identitas h2 {
+            text-align: center;
+            font-weight: 700;
+            font-size: 1.5rem;
+            color: #fff;
+            margin-bottom: 5px;
+            position: relative;
+            z-index: 1;
+        }
+        .card-identitas .subtitle {
+            text-align: center;
+            color: rgba(255, 255, 255, 0.3);
+            font-size: 0.8rem;
+            margin-bottom: 25px;
+            position: relative;
+            z-index: 1;
+        }
+        .corner-top-left {
+            position: absolute;
+            top: 15px;
+            left: 15px;
+            text-align: center;
+            line-height: 1.2;
+            z-index: 10;
+        }
+        .corner-top-left .wokib {
+            font-size: 16px;
+            font-weight: 900;
+            color: #FFD93D;
+            text-decoration: underline;
+            text-underline-offset: 3px;
+            letter-spacing: 0.5px;
+        }
+        .corner-top-left .deep-learning {
+            font-size: 9px;
+            font-weight: 600;
+            color: #00D2FF;
+            letter-spacing: 1px;
+        }
+        .corner-top-right {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            font-size: 16px;
+            font-weight: 900;
+            color: #FFD93D;
+            letter-spacing: 1px;
+            font-family: 'Poppins', sans-serif;
+            z-index: 10;
+        }
+        .form-identitas label {
+            font-size: 0.8rem;
+            color: rgba(255, 255, 255, 0.5);
+            font-weight: 600;
+            margin-bottom: 4px;
+            display: block;
+            position: relative;
+            z-index: 1;
+        }
+        .form-identitas input {
+            width: 100%;
+            padding: 12px 16px;
+            border-radius: 12px;
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            background: rgba(255, 255, 255, 0.03);
+            color: #fff;
+            font-size: 0.9rem;
+            transition: all 0.3s;
+            margin-bottom: 15px;
+            font-family: 'Poppins', sans-serif;
+            position: relative;
+            z-index: 1;
+        }
+        .form-identitas input:focus {
+            outline: none;
+            border-color: #6C63FF;
+            background: rgba(108, 99, 255, 0.05);
+            box-shadow: 0 0 30px rgba(108, 99, 255, 0.05);
+        }
+        .form-identitas input::placeholder {
+            color: rgba(255, 255, 255, 0.2);
+        }
+        .btn-mulai {
+            width: 100%;
+            padding: 14px;
+            border: none;
+            border-radius: 12px;
+            background: linear-gradient(135deg, #6C63FF, #FF6584);
+            color: #fff;
+            font-weight: 700;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.3s;
+            margin-top: 5px;
+            position: relative;
+            z-index: 1;
+        }
+        .btn-mulai:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(108, 99, 255, 0.3);
+        }
+        @keyframes scaleUp {
+            from { opacity: 0; transform: scale(0.95); }
+            to { opacity: 1; transform: scale(1); }
+        }
+
+        /* ===== SOAL ===== */
+        .soal-card {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            border-radius: 16px;
+            padding: 25px;
+            margin-bottom: 20px;
+            animation: fadeIn 0.4s ease;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .soal-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 12px;
+            flex-wrap: wrap;
+        }
+        .soal-number {
+            background: linear-gradient(135deg, #6C63FF, #FF6584);
+            width: 38px;
+            height: 38px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 0.9rem;
+            flex-shrink: 0;
+        }
+        .soal-topik {
+            background: rgba(108, 99, 255, 0.15);
+            color: #00D2FF;
+            padding: 2px 14px;
+            border-radius: 50px;
+            font-size: 0.7rem;
+            font-weight: 600;
+        }
+        .soal-bentuk {
+            background: rgba(255, 217, 61, 0.1);
+            color: #FFD93D;
+            padding: 2px 14px;
+            border-radius: 50px;
+            font-size: 0.65rem;
+            font-weight: 600;
+        }
+        .soal-gambar {
+            margin-bottom: 15px;
+            text-align: center;
+        }
+        .soal-gambar img {
+            max-width: 100%;
+            border-radius: 12px;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+        .soal-gambar .placeholder {
+            display: none;
+            color: rgba(255, 255, 255, 0.3);
+            font-size: 0.9rem;
+            padding: 20px;
+            background: rgba(255, 255, 255, 0.02);
+            border-radius: 12px;
+            border: 1px dashed rgba(255, 255, 255, 0.05);
+        }
+
+        /* ===== PILIHAN JAWABAN ===== */
+        .pilihan {
+            cursor: pointer;
+            padding: 12px 16px;
+            border-radius: 12px;
+            border: 2px solid rgba(255, 255, 255, 0.05);
+            margin-bottom: 8px;
+            transition: all 0.3s;
+            background: rgba(255, 255, 255, 0.02);
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        .pilihan:hover {
+            border-color: rgba(108, 99, 255, 0.3);
+            background: rgba(108, 99, 255, 0.05);
+        }
+        .pilihan.selected {
+            border-color: #6C63FF;
+            background: rgba(108, 99, 255, 0.1);
+            box-shadow: 0 0 30px rgba(108, 99, 255, 0.05);
+        }
+        .pilihan .letter {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.05);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 0.8rem;
+            flex-shrink: 0;
+        }
+        .pilihan.selected .letter {
+            background: #6C63FF;
+        }
+        .pilihan input {
+            display: none;
+        }
+
+        /* ===== MCMA TABLE ===== */
+        .table-jawaban {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 10px 0;
+        }
+        .table-jawaban th {
+            text-align: left;
+            padding: 8px 12px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            color: rgba(255, 255, 255, 0.3);
+            font-size: 0.7rem;
+            font-weight: 600;
+            text-transform: uppercase;
+        }
+        .table-jawaban td {
+            padding: 8px 12px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.02);
+            font-size: 0.85rem;
+        }
+        .table-jawaban .btn-option {
+            padding: 4px 16px;
+            border-radius: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            background: rgba(255, 255, 255, 0.02);
+            color: rgba(255, 255, 255, 0.5);
+            cursor: pointer;
+            transition: all 0.3s;
+            font-size: 0.75rem;
+            font-weight: 600;
+        }
+        .table-jawaban .btn-option:hover {
+            border-color: rgba(108, 99, 255, 0.3);
+            color: #fff;
+        }
+        .table-jawaban .btn-option.active-benar {
+            background: rgba(0, 210, 255, 0.15);
+            border-color: #00D2FF;
+            color: #00D2FF;
+        }
+        .table-jawaban .btn-option.active-salah {
+            background: rgba(255, 101, 132, 0.15);
+            border-color: #FF6584;
+            color: #FF6584;
+        }
+
+        /* ===== NAVBAR ===== */
+        .navbar-soal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 100;
+            padding: 12px 0;
+            background: rgba(10, 10, 26, 0.9);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        }
+        .navbar-soal .container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .nav-left {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-weight: 700;
+            font-size: 0.9rem;
+        }
+        .nav-left i {
+            color: #00D2FF;
+            font-size: 22px;
+        }
+        .nav-center {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        .identitas-badge {
+            background: rgba(255, 255, 255, 0.03);
+            padding: 4px 14px;
+            border-radius: 50px;
+            font-size: 0.7rem;
+            color: rgba(255, 255, 255, 0.5);
+            border: 1px solid rgba(255, 255, 255, 0.03);
+        }
+        .identitas-badge strong {
+            color: #fff;
+        }
+        .timer-box {
+            background: rgba(255, 255, 255, 0.05);
+            padding: 6px 18px;
+            border-radius: 50px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 1.2rem;
+            font-weight: 700;
+            font-family: 'Courier New', monospace;
+        }
+        .timer-box i {
+            color: #00D2FF;
+        }
+
+        /* ===== PROGRESS ===== */
+        .progress-wrapper {
+            position: fixed;
+            top: 68px;
+            left: 0;
+            right: 0;
+            z-index: 99;
+            padding: 10px 0;
+            background: rgba(10, 10, 26, 0.6);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.03);
+        }
+        .progress-stats {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.8rem;
+            color: rgba(255, 255, 255, 0.4);
+            margin-bottom: 6px;
+        }
+        .progress-stats strong {
+            color: #fff;
+        }
+        .progress-bar-custom {
+            height: 5px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 10px;
+            overflow: hidden;
+        }
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #6C63FF, #00D2FF);
+            border-radius: 10px;
+            transition: width 0.5s ease;
+            width: 0%;
+        }
+        .main-soal {
+            margin-top: 130px;
+            margin-bottom: 30px;
+            padding: 0 15px;
+        }
+
+        /* ===== NAVIGASI SOAL ===== */
+        .nav-card {
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            border-radius: 16px;
+            padding: 18px;
+            position: sticky;
+            top: 140px;
+        }
+        .nav-card h6 {
+            text-align: center;
+            font-size: 0.85rem;
+            color: rgba(255, 255, 255, 0.5);
+            margin-bottom: 12px;
+        }
+        .nav-grid {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 5px;
+        }
+        .nav-btn {
+            padding: 6px;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            border-radius: 8px;
+            background: rgba(255, 255, 255, 0.02);
+            color: rgba(255, 255, 255, 0.3);
+            font-weight: 600;
+            font-size: 0.75rem;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-align: center;
+        }
+        .nav-btn:hover {
+            background: rgba(108, 99, 255, 0.1);
+            color: #fff;
+        }
+        .nav-btn.done {
+            background: rgba(0, 210, 255, 0.1);
+            border-color: rgba(0, 210, 255, 0.2);
+            color: #00D2FF;
+        }
+        .nav-btn.current {
+            background: linear-gradient(135deg, #6C63FF, #FF6584);
+            border-color: #6C63FF;
+            color: #fff;
+            transform: scale(1.05);
+        }
+
+        /* ===== BUTTONS ===== */
+        .btn-finish {
+            width: 100%;
+            padding: 12px;
+            border: none;
+            border-radius: 10px;
+            background: linear-gradient(135deg, #00D2FF, #00B894);
+            color: #fff;
+            font-weight: 700;
+            transition: all 0.3s;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+        .btn-finish:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(0, 210, 255, 0.3);
+        }
+        .btn-secondary-custom {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 10px;
+            background: rgba(255, 255, 255, 0.05);
+            color: #fff;
+            font-weight: 700;
+            transition: all 0.3s;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+        .btn-secondary-custom:hover {
+            background: rgba(255, 255, 255, 0.1);
+            border-color: #fff;
+        }
+        .hint {
+            text-align: center;
+            font-size: 0.6rem;
+            color: rgba(255, 255, 255, 0.15);
+            margin-top: 10px;
+        }
+        .hint kbd {
+            background: rgba(255, 255, 255, 0.05);
+            padding: 1px 8px;
+            border-radius: 4px;
+            color: rgba(255, 255, 255, 0.2);
+        }
+
+        /* ===== MODAL HASIL ===== */
+        #modalHasil {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(10, 10, 26, 0.95);
+            backdrop-filter: blur(20px);
+            z-index: 1000;
+            align-items: center;
+            justify-content: center;
+            padding: 15px;
+            overflow-y: auto;
+        }
+        .modal-content-box {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            padding: 30px;
+            max-width: 650px;
+            width: 100%;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
+            animation: scaleUp 0.3s ease;
+            max-height: 95vh;
+            overflow-y: auto;
+        }
+        .modal-content-box h3 {
+            margin-bottom: 20px;
+            font-weight: 700;
+            color: #00D2FF;
+            text-align: center;
+        }
+        .stat-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+            margin-bottom: 20px;
+        }
+        .stat-item {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            padding: 12px 15px;
+            border-radius: 12px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .stat-item span {
+            font-size: 0.85rem;
+            color: rgba(255, 255, 255, 0.6);
+        }
+        .stat-item strong {
+            font-size: 1.2rem;
+            color: #fff;
+        }
+        .stat-item.highlight-skor {
+            border-color: rgba(108, 99, 255, 0.4);
+            background: rgba(108, 99, 255, 0.1);
+            grid-column: 1 / -1;
+        }
+        .stat-item.highlight-skor strong {
+            color: #FFD93D;
+            font-size: 1.8rem;
+        }
+        .stat-item.ucapan {
+            grid-column: 1 / -1;
+            justify-content: center;
+            background: rgba(255, 217, 61, 0.05);
+            border-color: rgba(255, 217, 61, 0.15);
+        }
+        .stat-item.ucapan strong {
+            font-size: 1.6rem;
+            text-align: center;
+        }
+        .ucapan-genius { color: #FFD93D; text-shadow: 0 0 30px rgba(255, 217, 61, 0.3); }
+        .ucapan-hebat { color: #00D2FF; text-shadow: 0 0 30px rgba(0, 210, 255, 0.3); }
+        .ucapan-belajar { color: #FF6584; text-shadow: 0 0 30px rgba(255, 101, 132, 0.3); }
+
+        /* ===== DETAIL JAWABAN ===== */
+        #detailJawaban {
+            margin-bottom: 20px;
+            max-height: 350px;
+            overflow-y: auto;
+            padding-right: 5px;
+        }
+        #detailJawaban::-webkit-scrollbar {
+            width: 5px;
+        }
+        #detailJawaban::-webkit-scrollbar-track {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 10px;
+        }
+        #detailJawaban::-webkit-scrollbar-thumb {
+            background: linear-gradient(135deg, #6C63FF, #00D2FF);
+            border-radius: 10px;
+        }
+        .detail-item {
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            border-radius: 10px;
+            padding: 10px 14px;
+            margin-bottom: 6px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 5px;
+        }
+        .detail-item .nomor {
+            font-weight: 700;
+            color: rgba(255, 255, 255, 0.5);
+            font-size: 0.75rem;
+            min-width: 35px;
+        }
+        .detail-item .jawaban-user {
+            font-size: 0.8rem;
+            color: rgba(255, 255, 255, 0.8);
+            flex: 1;
+            margin: 0 8px;
+            min-width: 120px;
+        }
+        .detail-item .status {
+            font-weight: 700;
+            font-size: 0.7rem;
+            padding: 2px 12px;
+            border-radius: 50px;
+            white-space: nowrap;
+        }
+        .status.benar {
+            background: rgba(0, 210, 255, 0.15);
+            color: #00D2FF;
+        }
+        .status.salah {
+            background: rgba(255, 101, 132, 0.15);
+            color: #FF6584;
+        }
+        .status.kosong {
+            background: rgba(255, 255, 255, 0.05);
+            color: rgba(255, 255, 255, 0.3);
+        }
+        .detail-header {
+            text-align: center;
+            font-size: 0.75rem;
+            color: rgba(255, 255, 255, 0.3);
+            margin-bottom: 12px;
+            letter-spacing: 1px;
+        }
+        .detail-header i {
+            margin-right: 6px;
+        }
+
+        /* ===== LOADING ===== */
+        #loading {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(10, 10, 26, 0.9);
+            backdrop-filter: blur(20px);
+            z-index: 999;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+        .loader-ring {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            border: 4px solid rgba(255, 255, 255, 0.05);
+            border-top-color: #6C63FF;
+            border-bottom-color: #FF6584;
+            animation: spin 1s linear infinite;
+        }
+        .loader-text {
+            margin-top: 20px;
+            font-weight: 700;
+            letter-spacing: 3px;
+            color: rgba(255, 255, 255, 0.5);
+        }
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        /* ===== RESPONSIVE ===== */
+        @media (max-width: 992px) {
+            .col-lg-3 .nav-card { display: none; }
+            .main-soal { margin-top: 120px; }
+        }
+        @media (max-width: 768px) {
+            .soal-card { padding: 18px; }
+            .timer-box { font-size: 1rem; padding: 4px 12px; }
+            .modal-content-box { padding: 20px; }
+            .detail-item { padding: 8px 10px; }
+            .detail-item .jawaban-user { font-size: 0.7rem; min-width: 80px; }
+            .card-identitas { padding: 25px 20px; }
+            .corner-top-left .wokib { font-size: 13px; }
+            .corner-top-left .deep-learning { font-size: 8px; }
+            .corner-top-right { font-size: 13px; }
+            .logo-atom { width: 60px; height: 60px; }
+            .logo-atom .orbit-1 { width: 55px; height: 55px; }
+            .logo-atom .orbit-2 { width: 45px; height: 45px; }
+            .logo-atom .orbit-3 { width: 35px; height: 35px; }
+            .logo-atom .nucleus { width: 16px; height: 16px; }
+            .logo-atom .electron { width: 6px; height: 6px; }
+            @keyframes electronMove {
+                0% { transform: translateX(-50%) rotate(0deg) translateX(27px) rotate(0deg); }
+                100% { transform: translateX(-50%) rotate(360deg) translateX(27px) rotate(-360deg); }
+            }
+            .stat-grid {
+                grid-template-columns: 1fr;
+            }
+            .stat-item.highlight-skor {
+                grid-column: 1;
+            }
+            .stat-item.ucapan {
+                grid-column: 1;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="bg-animated"></div>
+
+    <!-- ============================================================ -->
+    <!-- HALAMAN IDENTITAS -->
+    <!-- ============================================================ -->
+    <div id="halamanIdentitas">
+        <div class="card-identitas">
+            <div class="corner-top-left">
+                <div class="wokib">Wokib</div>
+                <div class="deep-learning">DEEP LEARNING</div>
+            </div>
+            <div class="corner-top-right">SMA/MA</div>
+            <div class="logo">
+                <div class="logo-atom">
+                    <div class="orbit orbit-1"><div class="electron electron-1"></div></div>
+                    <div class="orbit orbit-2"><div class="electron electron-2"></div></div>
+                    <div class="orbit orbit-3"><div class="electron electron-3"></div></div>
+                    <div class="nucleus"></div>
+                </div>
+            </div>
+            <h2>TRY OUT FISIKA</h2>
+            <p class="subtitle">TKA SMA/MA • 25 Soal • 90 Menit</p>
+            <form class="form-identitas" id="formIdentitas" onsubmit="mulaiTryout(event)">
+                <label><i class="fas fa-user"></i> Nama Lengkap</label>
+                <input type="text" id="inputNama" placeholder="Masukkan nama Anda..." required>
+                <label><i class="fas fa-school"></i> Asal Sekolah</label>
+                <input type="text" id="inputSekolah" placeholder="Nama sekolah..." required>
+                <label><i class="fas fa-map-marker-alt"></i> Kabupaten/Kota</label>
+                <input type="text" id="inputKabupaten" placeholder="Kabupaten/Kota...">
+                <label><i class="fas fa-map"></i> Provinsi</label>
+                <input type="text" id="inputProvinsi" placeholder="Provinsi...">
+                <button type="submit" class="btn-mulai"><i class="fas fa-play"></i> MULAI TRY OUT</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- ============================================================ -->
+    <!-- HALAMAN TRYOUT -->
+    <!-- ============================================================ -->
+    <div id="halamanTryout" class="hidden">
+        <nav class="navbar-soal">
+            <div class="container">
+                <div class="nav-left"><i class="fas fa-atom"></i><span>TKA FISIKA SMA/MA</span></div>
+                <div class="nav-center">
+                    <span class="identitas-badge">
+                        <i class="fas fa-user"></i> <strong id="displayNama">-</strong>
+                        <span style="opacity:0.3;margin:0 5px;">|</span>
+                        <i class="fas fa-school"></i> <span id="displaySekolah">-</span>
+                    </span>
+                </div>
+                <div class="nav-right">
+                    <div class="timer-box"><i class="fas fa-hourglass-half"></i><span id="timer">90:00</span></div>
+                </div>
+            </div>
+        </nav>
+
+        <div class="progress-wrapper">
+            <div class="container">
+                <div class="progress-stats">
+                    <span><i class="fas fa-check-circle"></i> Terjawab: <strong id="answeredCount">0</strong>/<span id="totalSoalCount">25</span></span>
+                    <span><i class="fas fa-chart-line"></i> Progress: <strong id="progressText">0%</strong></span>
+                </div>
+                <div class="progress-bar-custom"><div class="progress-fill" id="progressBar"></div></div>
+            </div>
+        </div>
+
+        <div class="container main-soal">
+            <div class="row g-3">
+                <div class="col-lg-9"><div id="daftarSoal"></div></div>
+                <div class="col-lg-3">
+                    <div class="nav-card">
+                        <h6><i class="fas fa-th"></i> Navigasi Soal</h6>
+                        <div id="navigasiSoal" class="nav-grid"></div>
+                        <button class="btn-finish" onclick="submitTryout()"><i class="fas fa-check-circle"></i> SELESAI</button>
+                        <div class="hint"><kbd>←</kbd> <kbd>→</kbd> Navigasi</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ============================================================ -->
+    <!-- MODAL HASIL -->
+    <!-- ============================================================ -->
+    <div id="modalHasil">
+        <div class="modal-content-box">
+            <h3><i class="fas fa-award"></i> HASIL TRY OUT</h3>
+            <div class="stat-grid">
+                <div class="stat-item highlight-skor">
+                    <span>Skor Anda</span>
+                    <strong id="modalSkorSaya">0</strong>
+                </div>
+                <div class="stat-item">
+                    <span>Skor Maksimum</span>
+                    <strong>100</strong>
+                </div>
+                <div class="stat-item">
+                    <span>Jumlah Benar</span>
+                    <strong id="modalBenar">0 / 25</strong>
+                </div>
+                <div class="stat-item ucapan">
+                    <strong id="modalUcapanText">🎉 SELAMAT!</strong>
+                </div>
+            </div>
+            <div class="detail-header"><i class="fas fa-list-ul"></i> RINCIAN JAWABAN (25 SOAL)</div>
+            <div id="detailJawaban"></div>
+            <button class="btn-finish" onclick="tutupModal()"><i class="fas fa-check-circle"></i> TUTUP</button>
+            <button class="btn-secondary-custom" onclick="kembaliKeHalamanUtama()"><i class="fas fa-home"></i> KEMBALI KE HALAMAN UTAMA</button>
+        </div>
+    </div>
+
+    <!-- ============================================================ -->
+    <!-- LOADING -->
+    <!-- ============================================================ -->
+    <div id="loading">
+        <div class="loader-ring"></div>
+        <div class="loader-text">MENYIMPAN JAWABAN...</div>
+    </div>
+
+    <script>
+        // ================================================================
+        // DATA SOAL - TEKS SOAL DIHAPUS, DIGANTI GAMBAR
+        // OPSI DAN KUNCI JAWABAN TETAP UTUH
+        // ================================================================
+        const soalData = [
+            // SOAL 1 - MCMA
+            {
+                id: 1,
+                topik: "Pengukuran",
+                bentuk: "MCMA",
+                soal: "", // TEKS DIHAPUS
+                type: "mcma",
+                tabel: [
+                    { pernyataan: "Diameter manik-manik A = 8,80 mm", benar: true },
+                    { pernyataan: "Diameter manik-manik B = 9,30 mm", benar: true },
+                    { pernyataan: "Diameter manik-manik C = 9,60 mm", benar: false },
+                    { pernyataan: "Diameter manik-manik D = 10,10 mm", benar: false },
+                    { pernyataan: "Diameter manik-manik E = 10,30 mm", benar: false }
+                ]
+            },
+            // SOAL 2
+            {
+                id: 2,
+                topik: "Gerak Relatif",
+                bentuk: "Pilihan Ganda",
+                soal: "",
+                type: "pilihan",
+                pilihan: [
+                    "Bergerak ke arah timur dengan kecepatan 12 km/jam",
+                    "Bergerak ke arah tenggara dengan kecepatan 10 km/jam",
+                    "Bergerak ke arah barat dengan kecepatan 10 km/jam",
+                    "Bergerak ke arah timur dengan kecepatan 10 km/jam",
+                    "Bergerak ke arah timur dengan kecepatan 8 km/jam"
+                ],
+                jawaban: 4
+            },
+            // SOAL 3
+            {
+                id: 3,
+                topik: "Kinematika",
+                bentuk: "Pilihan Ganda",
+                soal: "",
+                type: "pilihan",
+                pilihan: [
+                    "Kecepatan mobil A dan kecepatan mobil B selalu konstan",
+                    "Pada detik ke-5, mobil A dan mobil B berada pada posisi yang sama",
+                    "Mobil A akan menyalip mobil B pada detik ke-5",
+                    "Pada detik ke-5, kecepatan kedua mobil sama",
+                    "Percepatan kedua mobil pada detik ke-5 yaitu 25 m/s²"
+                ],
+                jawaban: 3
+            },
+            // SOAL 4
+            {
+                id: 4,
+                topik: "Kinematika",
+                bentuk: "Pilihan Ganda",
+                soal: "",
+                type: "pilihan",
+                pilihan: ["150 m", "200 m", "250 m", "300 m", "400 m"],
+                jawaban: 2
+            },
+            // SOAL 5
+            {
+                id: 5,
+                topik: "Gerak Vertikal",
+                bentuk: "Pilihan Ganda",
+                soal: "",
+                type: "pilihan",
+                pilihan: ["30 m", "50 m", "75 m", "105 m", "180 m"],
+                jawaban: 3
+            },
+            // SOAL 6
+            {
+                id: 6,
+                topik: "Gerak Melingkar",
+                bentuk: "Pilihan Ganda",
+                soal: "",
+                type: "pilihan",
+                pilihan: [
+                    "Kecepatan linear benda A menjadi empat kali kecepatan linear benda B",
+                    "Waktu tempuh satu putaran benda B menjadi empat kali waktu tempuh benda A",
+                    "Banyaknya rotasi per sekon benda A tetap lebih kecil dari benda B",
+                    "Percepatan sentripetal benda A menjadi empat kali percepatan sentripetal benda B",
+                    "Gaya sentripetal benda A dan B tetap sama jika massa kedua benda dijaga sama"
+                ],
+                jawaban: 0
+            },
+            // SOAL 7
+            {
+                id: 7,
+                topik: "Gerak Parabola",
+                bentuk: "Pilihan Ganda",
+                soal: "",
+                type: "pilihan",
+                pilihan: [
+                    "Kedua bola tetap masuk ke ring karena sudut dan tinggi awalnya tidak berubah",
+                    "Bola Bisma dipastikan masih dapat masuk ke dalam ring karena sudutnya besar",
+                    "Bola Bisma jatuh lebih cepat dan gagal masuk karena kecepatannya lebih kecil",
+                    "Bola Bisma akan melengkung lebih tinggi sehingga justru lebih mudah masuk",
+                    "Bola Adrian diperkirakan akan melewati ring karena kecepatannya terlalu besar"
+                ],
+                jawaban: 2
+            },
+            // SOAL 8
+            {
+                id: 8,
+                topik: "Hukum Newton",
+                bentuk: "Pilihan Ganda",
+                soal: "",
+                type: "pilihan",
+                pilihan: [
+                    "Semakin besar gaya yang diberikan pada semakin besar percepatannya",
+                    "Ketika mendayung perahu ke depan, air akan mendorong perahu ke belakang",
+                    "Sebuah buku akan tetap diam di atas meja sampai ada gaya yang menggerakkannya",
+                    "Sebuah bola kasti yang dilempar vertikal ke atas oleh seseorang akan kembali jatuh ke tanah",
+                    "Dibutuhkan gaya yang lebih besar untuk mempercepat truk dibandingkan mempercepat sepeda motor"
+                ],
+                jawaban: 2
+            },
+            // SOAL 9
+            {
+                id: 9,
+                topik: "Dinamika",
+                bentuk: "Pilihan Ganda",
+                soal: "",
+                type: "pilihan",
+                pilihan: [
+                    "Kecepatan resultannya 10 m/s dengan arah 53° ke timur dari utara, kemudian bergerak lurus dengan kecepatan konstan",
+                    "Kecepatan resultannya 8 m/s dengan arah 45° ke timur dari utara, kemudian bergerak lurus dengan percepatan konstan",
+                    "Kecepatan resultannya 10 m/s dengan arah 37° ke timur dari utara, kemudian bergerak lurus dan mengalami perlambatan",
+                    "Kecepatan resultannya 12 m/s dengan arah 37° ke timur dari utara, kemudian bergerak lurus dengan percepatan konstan",
+                    "Kecepatan resultannya 6 m/s dengan arah membentuk sudut 45° ke timur dari utara, kemudian bergerak lurus dengan percepatan tetap"
+                ],
+                jawaban: 0
+            },
+            // SOAL 10
+            {
+                id: 10,
+                topik: "Impuls dan Momentum",
+                bentuk: "Pilihan Ganda",
+                soal: "",
+                type: "pilihan",
+                pilihan: [
+                    "Impuls yang kecil menyebabkan tumpukan batu bata pecah karena kecepatan pukulan sangat tinggi",
+                    "Gaya menjadi sangat besar karena perubahan momentum terjadi dalam waktu yang sangat singkat",
+                    "Impuls yang diterima hebel menjadi kecil karena waktu sentuh sangat singkat",
+                    "Tidak ada perubahan momentum, karena batu bata kondisi awalnya diam",
+                    "Impuls yang besar terjadi karena gaya dan waktu sentuh yang besar"
+                ],
+                jawaban: 1
+            },
+            // SOAL 11
+            {
+                id: 11,
+                topik: "Momen Gaya",
+                bentuk: "Pilihan Ganda",
+                soal: "",
+                type: "pilihan",
+                pilihan: [
+                    "180 rad/s²",
+                    "270 rad/s²",
+                    "360 rad/s²",
+                    "1080 rad/s²",
+                    "1440 rad/s²"
+                ],
+                jawaban: 2
+            },
+            // SOAL 12
+            {
+                id: 12,
+                topik: "Fluida Statis",
+                bentuk: "Pilihan Ganda",
+                soal: "",
+                type: "pilihan",
+                pilihan: [
+                    "15 N",
+                    "90 N",
+                    "240 N",
+                    "3240 N",
+                    "19440 N"
+                ],
+                jawaban: 4
+            },
+            // SOAL 13
+            {
+                id: 13,
+                topik: "Fluida Statis",
+                bentuk: "Pilihan Ganda",
+                soal: "",
+                type: "pilihan",
+                pilihan: [
+                    "40 m³",
+                    "160 m³",
+                    "200 m³",
+                    "240 m³",
+                    "360 m³"
+                ],
+                jawaban: 1
+            },
+            // SOAL 14 - MCMA
+            {
+                id: 14,
+                topik: "Fluida Dinamis",
+                bentuk: "MCMA",
+                soal: "",
+                type: "mcma",
+                tabel: [
+                    { pernyataan: "Saat udara mengalir di atas dan bawah sayap, kecepatan udara di atas lebih tinggi", benar: true },
+                    { pernyataan: "Rendahnya kecepatan aliran udara di bawah sayap, menghasilkan tekanan yang lebih rendah", benar: false },
+                    { pernyataan: "Perbedaan tekanan menciptakan gaya angkat yang memungkinkan burung tetap terbang", benar: true },
+                    { pernyataan: "Gerakan melawan arah angin menciptakan hambatan sehingga burung dapat terbang", benar: false },
+                    { pernyataan: "Bentuk sayap berubah untuk menghasilkan perubahan gaya angkat", benar: true }
+                ]
+            },
+            // SOAL 15
+            {
+                id: 15,
+                topik: "Gelombang Bunyi",
+                bentuk: "Pilihan Ganda",
+                soal: "",
+                type: "pilihan",
+                pilihan: [
+                    "212,5 Hz",
+                    "425,0 Hz",
+                    "637,5 Hz",
+                    "850 Hz",
+                    "1.062,5 Hz"
+                ],
+                jawaban: 0
+            },
+            // SOAL 16
+            {
+                id: 16,
+                topik: "Optik",
+                bentuk: "Pilihan Ganda",
+                soal: "",
+                type: "pilihan",
+                pilihan: [
+                    "Cahaya dari tanaman terlihat beriak seperti gelombang air karena tertiup angin",
+                    "Permukaan lapangan terlihat bergelombang sehingga cahaya dari tanaman terlihat beriak",
+                    "Permukaan lapangan yang tidak rata menyebabkan pemantulan cahaya yang tidak teratur",
+                    "Panas permukaan lapangan menyebabkan perbedaan kerapatan udara sehingga cahaya mengalami pembiasan",
+                    "Tanah lapang yang panas membuat tarikan gravitasi saat cahaya merambat menjadi berbelok"
+                ],
+                jawaban: 3
+            },
+            // SOAL 17 - MCMA
+            {
+                id: 17,
+                topik: "Optik",
+                bentuk: "MCMA",
+                soal: "",
+                type: "mcma",
+                tabel: [
+                    { pernyataan: "Membuat kacamata dengan kekuatan +2 dioptri", benar: true },
+                    { pernyataan: "Membaca dengan jarak lebih dari 50 cm", benar: false },
+                    { pernyataan: "Menggunakan kacamata temannya yang terbuat dari lensa cekung", benar: false }
+                ],
+                label: { benar: "Tepat", salah: "Tidak Tepat" }
+            },
+            // SOAL 18
+            {
+                id: 18,
+                topik: "Kalor",
+                bentuk: "Pilihan Ganda",
+                soal: "",
+                type: "pilihan",
+                pilihan: [
+                    "Variabel kontrol: jenis bahan, variabel bebas: daya konduksi, variabel terikat: panjang logam.",
+                    "Variabel kontrol: waktu melehnya lilin, variabel bebas: jenis bahan, variabel terikat: daya konduksi.",
+                    "Variabel kontrol: jenis logam, variabel bebas: jarak lilin dari sumber, variabel terikat: waktu melehnya lilin.",
+                    "Variabel kontrol: waktu melehnya lilin, variabel bebas: panjang logam, variabel terikat: jenis logam.",
+                    "Variabel kontrol: panjang logam, variabel bebas: jenis logam, variabel terikat: daya konduksi"
+                ],
+                jawaban: 2
+            },
+            // SOAL 19
+            {
+                id: 19,
+                topik: "Kalor",
+                bentuk: "Pilihan Ganda",
+                soal: "",
+                type: "pilihan",
+                pilihan: [
+                    "Jenis lilin dan ukuran lilin tidak dipastikan sama sehingga tidak homogen",
+                    "Jenis logam yang tidak diganti-ganti sehingga menyebabkan tidak ada pembanding",
+                    "Penempatan sumber panas di ujung logam menyebabkan kalor tidak menyebar secara merata",
+                    "Pengukuran waktu menggunakan stopwatch sulit dilakukan sehingga muncul penyimpangan data waktu",
+                    "Panjang keseluruhan logam tidak diukur sehingga tidak dapat dibandingkan"
+                ],
+                jawaban: 0
+            },
+            // SOAL 20
+            {
+                id: 20,
+                topik: "Termodinamika",
+                bentuk: "Pilihan Ganda",
+                soal: "",
+                type: "pilihan",
+                pilihan: ["0,5 atmosfer", "1 atmosfer", "2 atmosfer", "4 atmosfer", "6 atmosfer"],
+                jawaban: 3
+            },
+            // SOAL 21
+            {
+                id: 21,
+                topik: "Termodinamika",
+                bentuk: "Pilihan Ganda",
+                soal: "",
+                type: "pilihan",
+                pilihan: [
+                    "Membutuhkan kalor 40% lebih banyak",
+                    "Membutuhkan kalor 40% lebih sedikit",
+                    "Membutuhkan kalor 75% kalor lebih sedikit",
+                    "Membutuhkan kalor 25% kalor lebih banyak",
+                    "Membutuhkan kalor 50% kalor lebih sedikit"
+                ],
+                jawaban: 1
+            },
+            // SOAL 22 - MCMA
+            {
+                id: 22,
+                topik: "Termodinamika",
+                bentuk: "MCMA",
+                soal: "",
+                type: "mcma",
+                tabel: [
+                    { pernyataan: "Grafik menunjukkan tren kenaikan suhu yang dapat disebabkan oleh peningkatan energi termal di lingkungan akibat aktivitas manusia", benar: true },
+                    { pernyataan: "Emisi dari kendaraan dan AC menyebabkan peningkatan kalor laten di udara yang mengurangi efek rumah kaca", benar: false },
+                    { pernyataan: "Penurunan area hijau menyebabkan berkurangnya pendinginan alami akibat proses transpirasi dan evaporasi", benar: true },
+                    { pernyataan: "Kenaikan suhu udara dalam jangka panjang menunjukkan adanya ketidakseimbangan antara energi yang diserap dan dipancarkan kembali oleh permukaan bumi", benar: true },
+                    { pernyataan: "Peningkatan suhu udara berarti peningkatan energi kinetik rata-rata partikel udara di atmosfer", benar: true }
+                ]
+            },
+            // SOAL 23
+            {
+                id: 23,
+                topik: "Listrik Statis",
+                bentuk: "Pilihan Ganda",
+                soal: "",
+                type: "pilihan",
+                pilihan: [
+                    "Di sebelah kiri Q₁, yaitu pada x = 3,2 cm.",
+                    "Di sebelah kanan Q₁, yaitu pada x = 3,2 cm.",
+                    "Tepat di antara kedua muatan, yaitu pada x = 4 cm",
+                    "Di sebelah kanan Q₁, yaitu pada x = 4,8 cm.",
+                    "Di sebelah kanan Q₂, yaitu pada x = 11,2 cm."
+                ],
+                jawaban: 1
+            },
+            // SOAL 24
+            {
+                id: 24,
+                topik: "Listrik Dinamis",
+                bentuk: "Pilihan Ganda",
+                soal: "",
+                type: "pilihan",
+                pilihan: [
+                    "Ubah sumber tegangan rangkaian A menjadi 6 V.",
+                    "Tambah satu resistor 6 Ω secara paralel pada Rangkaian A.",
+                    "Ubah susunan resistor Rangkaian B menjadi seri.",
+                    "Ganti tegangan sumber Rangkaian B menjadi 12 V.",
+                    "Tambah satu resistor 3 Ω secara seri pada Rangkaian B."
+                ],
+                jawaban: 0
+            },
+            // SOAL 25
+            {
+                id: 25,
+                topik: "Listrik Dinamis",
+                bentuk: "Pilihan Ganda",
+                soal: "",
+                type: "pilihan",
+                pilihan: [
+                    "Mengurangi penggunaan AC menjadi 4 jam per hari",
+                    "Mengurangi durasi menonton televisi 1 jam per hari dan mengurangi penggunaan mesin cuci 1 hari per bulan",
+                    "Mengurangi durasi menonton TV menjadi 2 jam per hari",
+                    "Tidak menggunakan mesin cuci sama sekali",
+                    "Mengurangi frekuensi menyetrika menjadi 4 hari per bulan"
+                ],
+                jawaban: 1
+            }
+        ];
+
+        // ================================================================
+        // LOGIKA APLIKASI
+        // ================================================================
+        let jawaban = {};
+        let soalSaatIni = 0;
+        const totalSoal = soalData.length;
+        let timer = null;
+
+        function mulaiTryout(event) {
+            event.preventDefault();
+            const nama = document.getElementById('inputNama').value.trim();
+            const sekolah = document.getElementById('inputSekolah').value.trim();
+            const kabupaten = document.getElementById('inputKabupaten').value.trim();
+            const provinsi = document.getElementById('inputProvinsi').value.trim();
+            if (!nama || !sekolah) { alert('⚠️ Nama dan Asal Sekolah wajib diisi!'); return; }
+            localStorage.setItem('identitas_nama', nama);
+            localStorage.setItem('identitas_sekolah', sekolah);
+            localStorage.setItem('identitas_kabupaten', kabupaten);
+            localStorage.setItem('identitas_provinsi', provinsi);
+            document.getElementById('halamanIdentitas').classList.add('hidden');
+            document.getElementById('halamanTryout').classList.remove('hidden');
+            tampilkanIdentitas();
+            renderSoal();
+            timer = new Timer(90);
+            timer.start();
+        }
+
+        function tampilkanIdentitas() {
+            const nama = localStorage.getItem('identitas_nama') || 'Siswa';
+            const sekolah = localStorage.getItem('identitas_sekolah') || '-';
+            document.getElementById('displayNama').textContent = nama;
+            document.getElementById('displaySekolah').textContent = sekolah;
+        }
+
+        function renderSoal() {
+            const container = document.getElementById('daftarSoal');
+            const navigasi = document.getElementById('navigasiSoal');
+            if (!container) return;
+            document.getElementById('totalSoalCount').textContent = totalSoal;
+            container.innerHTML = '';
+            navigasi.innerHTML = '';
+
+            soalData.forEach((soal, index) => {
+                const div = document.createElement('div');
+                div.className = 'soal-card';
+                div.id = `soal-${index}`;
+                div.style.display = index === 0 ? 'block' : 'none';
+                const nomor = index + 1;
+
+                let html = `
+                    <div class="soal-header">
+                        <span class="soal-number">${nomor}</span>
+                        <span class="soal-topik">${soal.topik}</span>
+                        <span class="soal-bentuk">${soal.bentuk}</span>
+                    </div>
+                    <div class="soal-gambar">
+                        <img src="soal_${nomor}.jpg" alt="Soal ${nomor}" onerror="this.style.display='none'; this.nextElementSibling.style.display='block'">
+                        <div class="placeholder">⚠️ Gambar soal_${nomor}.jpg tidak ditemukan.</div>
+                    </div>
+                `;
+
+                if (soal.type === 'pilihan') {
+                    const letters = ['A', 'B', 'C', 'D', 'E'];
+                    soal.pilihan.forEach((p, i) => {
+                        const isSelected = jawaban[index] === i;
+                        html += `
+                            <div class="pilihan ${isSelected ? 'selected' : ''}" onclick="pilihJawaban(${index}, ${i})">
+                                <span class="letter">${letters[i]}</span>
+                                <span>${p}</span>
+                                <input type="radio" name="jawaban_${index}" value="${i}" ${isSelected ? 'checked' : ''}>
+                            </div>
+                        `;
+                    });
+                } else if (soal.type === 'mcma') {
+                    const labelB = soal.label?.benar || 'Benar';
+                    const labelS = soal.label?.salah || 'Salah';
+                    html += `<table class="table-jawaban"><thead><tr><th>Pernyataan</th><th style="text-align:center;">${labelB}</th><th style="text-align:center;">${labelS}</th></tr></thead><tbody>`;
+                    soal.tabel.forEach((item, idx) => {
+                        const key = `${index}-${idx}`;
+                        const val = jawaban[key];
+                        html += `
+                            <tr>
+                                <td>${item.pernyataan}</td>
+                                <td style="text-align:center;">
+                                    <button type="button" class="btn-option ${val === true ? 'active-benar' : ''}" onclick="pilihMCMA(${index}, ${idx}, true)">✓</button>
+                                </td>
+                                <td style="text-align:center;">
+                                    <button type="button" class="btn-option ${val === false ? 'active-salah' : ''}" onclick="pilihMCMA(${index}, ${idx}, false)">✗</button>
+                                </td>
+                            </tr>
+                        `;
+                    });
+                    html += `</tbody></table>`;
+                }
+
+                div.innerHTML = html;
+                container.appendChild(div);
+
+                const btn = document.createElement('button');
+                btn.type = 'button';
+                btn.className = 'nav-btn';
+                btn.id = `nav-${index}`;
+                btn.textContent = nomor;
+                if (cekStatusSoal(index)) btn.classList.add('done');
+                btn.onclick = () => pindahSoal(index);
+                navigasi.appendChild(btn);
+            });
+
+            pindahSoal(0);
+            updateProgress();
+        }
+
+        function cekStatusSoal(index) {
+            const soal = soalData[index];
+            if (soal.type === 'pilihan') return jawaban[index] !== undefined;
+            else if (soal.type === 'mcma') return soal.tabel.every((_, idx) => jawaban[`${index}-${idx}`] !== undefined);
+            return false;
+        }
+
+        function pindahSoal(index) {
+            document.querySelectorAll('.soal-card').forEach(el => el.style.display = 'none');
+            const target = document.getElementById(`soal-${index}`);
+            if (target) target.style.display = 'block';
+            document.querySelectorAll('.nav-btn').forEach(el => el.classList.remove('current'));
+            const nav = document.getElementById(`nav-${index}`);
+            if (nav) nav.classList.add('current');
+            soalSaatIni = index;
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        function pilihJawaban(index, pilihan) {
+            jawaban[index] = pilihan;
+            const labels = document.querySelectorAll(`#soal-${index} .pilihan`);
+            labels.forEach((label, i) => {
+                if (i === pilihan) { label.classList.add('selected'); label.querySelector('input').checked = true; }
+                else { label.classList.remove('selected'); label.querySelector('input').checked = false; }
+            });
+            const nav = document.getElementById(`nav-${index}`);
+            if (nav) nav.classList.add('done');
+            updateProgress();
+            simpanProgress();
+        }
+
+        function pilihMCMA(index, idx, value) {
+            const key = `${index}-${idx}`;
+            jawaban[key] = value;
+            const row = document.querySelectorAll(`#soal-${index} .table-jawaban tbody tr`)[idx];
+            if (row) {
+                const btns = row.querySelectorAll('.btn-option');
+                btns.forEach(btn => btn.classList.remove('active-benar', 'active-salah'));
+                if (value === true) btns[0].classList.add('active-benar');
+                else btns[1].classList.add('active-salah');
+            }
+            const nav = document.getElementById(`nav-${index}`);
+            if (nav) {
+                if (cekStatusSoal(index)) nav.classList.add('done');
+                else nav.classList.remove('done');
+            }
+            updateProgress();
+            simpanProgress();
+        }
+
+        function updateProgress() {
+            let answered = 0;
+            soalData.forEach((_, index) => { if (cekStatusSoal(index)) answered++; });
+            const persentase = Math.round((answered / totalSoal) * 100);
+            document.getElementById('answeredCount').textContent = answered;
+            document.getElementById('progressText').textContent = persentase + '%';
+            document.getElementById('progressBar').style.width = persentase + '%';
+        }
+
+        class Timer {
+            constructor(durasi = 90) {
+                this.durasi = durasi * 60;
+                this.sisa = this.durasi;
+                this.interval = null;
+            }
+            start() {
+                this.interval = setInterval(() => {
+                    this.sisa--;
+                    const m = Math.floor(this.sisa / 60), d = this.sisa % 60;
+                    const timerEl = document.getElementById('timer');
+                    if (timerEl) timerEl.textContent = `${String(m).padStart(2,'0')}:${String(d).padStart(2,'0')}`;
+                    if (this.sisa <= 0) { clearInterval(this.interval); alert('⏰ Waktu habis!'); submitTryout(); }
+                }, 1000);
+            }
+            getWaktu() { return this.durasi - this.sisa; }
+        }
+
+        function submitTryout() {
+            let answered = 0;
+            soalData.forEach((_, index) => { if (cekStatusSoal(index)) answered++; });
+            if (answered < totalSoal) {
+                if (!confirm(`⚠️ Anda baru menjawab ${answered} dari ${totalSoal} soal. Yakin ingin mengumpulkan?`)) return;
+            }
+            document.getElementById('loading').style.display = 'flex';
+
+            let benar = 0;
+            soalData.forEach((soal, index) => {
+                if (soal.type === 'pilihan') {
+                    if (jawaban[index] === soal.jawaban) benar++;
+                } else if (soal.type === 'mcma') {
+                    let allCorrect = true;
+                    soal.tabel.forEach((item, idx) => {
+                        const key = `${index}-${idx}`;
+                        if (jawaban[key] !== item.benar) allCorrect = false;
+                    });
+                    if (allCorrect) benar++;
+                }
+            });
+
+            const skor = Math.round((benar / totalSoal) * 100);
+            localStorage.setItem('skor_fisika2026', skor);
+            localStorage.setItem('benar_fisika2026', benar);
+
+            const nama = localStorage.getItem('identitas_nama') || 'Siswa';
+            const sekolah = localStorage.getItem('identitas_sekolah') || '';
+            const kabupaten = localStorage.getItem('identitas_kabupaten') || '';
+            const provinsi = localStorage.getItem('identitas_provinsi') || '';
+
+            const formData = new FormData();
+            formData.append('jawaban', JSON.stringify(jawaban));
+            formData.append('skor', skor);
+            formData.append('benar', benar);
+            formData.append('total', totalSoal);
+            formData.append('waktu', timer ? timer.getWaktu() : 0);
+            formData.append('nama', nama);
+            formData.append('sekolah', sekolah);
+            formData.append('kabupaten', kabupaten);
+            formData.append('provinsi', provinsi);
+
+            fetch('src/php/simpan_jawaban.php', { method: 'POST', body: formData })
+                .then(() => { document.getElementById('loading').style.display = 'none'; tampilkanModalHasil(skor, benar); })
+                .catch(() => { document.getElementById('loading').style.display = 'none'; tampilkanModalHasil(skor, benar); });
+        }
+
+        function tampilkanModalHasil(skorSaya, benar) {
+            document.getElementById('modalSkorSaya').textContent = skorSaya;
+            document.getElementById('modalBenar').textContent = benar + ' / ' + totalSoal;
+
+            const ucapEl = document.getElementById('modalUcapanText');
+            let ucapan = '', kelas = '';
+            if (skorSaya > 90) { ucapan = '🎉 KAMU GENIUS! 🤩'; kelas = 'ucapan-genius'; }
+            else if (skorSaya >= 80 && skorSaya <= 90) { ucapan = '🔥 KAMU HEBAT! 💪'; kelas = 'ucapan-hebat'; }
+            else { ucapan = '📚 AYO SEMANGAT BELAJAR LAGI! 🌟'; kelas = 'ucapan-belajar'; }
+            ucapEl.textContent = ucapan;
+            ucapEl.className = kelas;
+
+            tampilkanDetailJawaban();
+            document.getElementById('modalHasil').style.display = 'flex';
+        }
+
+        function tampilkanDetailJawaban() {
+            const container = document.getElementById('detailJawaban');
+            container.innerHTML = '';
+            const letters = ['A', 'B', 'C', 'D', 'E'];
+            soalData.forEach((soal, index) => {
+                const div = document.createElement('div');
+                div.className = 'detail-item';
+                let jawabanUser = '-', status = 'kosong', statusText = '⬜ Kosong';
+                if (soal.type === 'pilihan') {
+                    const userAns = jawaban[index];
+                    const correctAns = soal.jawaban;
+                    if (userAns !== undefined) {
+                        jawabanUser = letters[userAns] + '. ' + soal.pilihan[userAns];
+                        if (userAns === correctAns) { status = 'benar'; statusText = '✅ Benar'; }
+                        else { status = 'salah'; statusText = '❌ Salah'; }
+                    } else { jawabanUser = 'Tidak dijawab'; statusText = '⬜ Kosong'; }
+                } else if (soal.type === 'mcma') {
+                    let allAnswered = true, allCorrect = true, answers = [];
+                    soal.tabel.forEach((item, idx) => {
+                        const key = `${index}-${idx}`;
+                        const val = jawaban[key];
+                        if (val === undefined) { allAnswered = false; answers.push('?'); }
+                        else { answers.push(val === item.benar ? '✓' : '✗'); if (val !== item.benar) allCorrect = false; }
+                    });
+                    if (!allAnswered) { jawabanUser = 'Tidak lengkap (' + answers.join(' | ') + ')'; statusText = '⬜ Kosong'; }
+                    else if (allCorrect) { jawabanUser = answers.join(' | '); status = 'benar'; statusText = '✅ Benar'; }
+                    else { jawabanUser = answers.join(' | '); status = 'salah'; statusText = '❌ Salah'; }
+                }
+                if (jawabanUser.length > 60) jawabanUser = jawabanUser.substring(0, 57) + '...';
+                div.innerHTML = `<span class="nomor">#${index+1}</span><span class="jawaban-user">${jawabanUser}</span><span class="status ${status}">${statusText}</span>`;
+                container.appendChild(div);
+            });
+        }
+
+        function tutupModal() { document.getElementById('modalHasil').style.display = 'none'; }
+
+        function kembaliKeHalamanUtama() {
+            localStorage.removeItem('progress_fisika2026');
+            if (timer && timer.interval) clearInterval(timer.interval);
+            jawaban = {};
+            document.getElementById('halamanTryout').classList.add('hidden');
+            document.getElementById('halamanIdentitas').classList.remove('hidden');
+            document.getElementById('inputNama').value = '';
+            document.getElementById('inputSekolah').value = '';
+            document.getElementById('inputKabupaten').value = '';
+            document.getElementById('inputProvinsi').value = '';
+            document.getElementById('modalHasil').style.display = 'none';
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        function simpanProgress() {
+            try { localStorage.setItem('progress_fisika2026', JSON.stringify({ jawaban: jawaban, timestamp: Date.now() })); } catch(e) {}
+        }
+
+        function muatProgress() {
+            try {
+                const saved = localStorage.getItem('progress_fisika2026');
+                if (saved) {
+                    const data = JSON.parse(saved);
+                    if (Date.now() - data.timestamp < 7200000) { jawaban = data.jawaban || {}; return true; }
+                }
+            } catch(e) {}
+            return false;
+        }
+
+        document.addEventListener('keydown', function(e) {
+            if (document.getElementById('halamanTryout').classList.contains('hidden')) return;
+            if (e.key === 'ArrowRight' || e.key === 'ArrowDown') { e.preventDefault(); if (soalSaatIni < totalSoal - 1) pindahSoal(soalSaatIni + 1); }
+            else if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') { e.preventDefault(); if (soalSaatIni > 0) pindahSoal(soalSaatIni - 1); }
+        });
+
+        document.addEventListener('DOMContentLoaded', function() {
+            const hasProgress = muatProgress();
+            const hasIdentitas = localStorage.getItem('identitas_nama');
+            if (hasProgress && hasIdentitas) {
+                document.getElementById('halamanIdentitas').classList.add('hidden');
+                document.getElementById('halamanTryout').classList.remove('hidden');
+                tampilkanIdentitas();
+                renderSoal();
+                timer = new Timer(90);
+                timer.start();
+            } else {
+                document.getElementById('halamanIdentitas').classList.remove('hidden');
+                document.getElementById('halamanTryout').classList.add('hidden');
+            }
+        });
+    </script>
+</body>
+</html>
+```
+
+---
