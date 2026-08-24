@@ -597,21 +597,21 @@
             transform: scale(1.05);
         }
 
-        /* ===== NAVIGASI GRID DI ATAS (HP) ===== */
-        .nav-grid-atas {
+        /* ===== NAVIGASI GRID DI BAWAH SOAL (HP) ===== */
+        .nav-grid-bawah {
             display: none;
             background: rgba(255, 255, 255, 0.02);
             border: 1px solid rgba(255, 255, 255, 0.05);
             border-radius: 12px;
             padding: 10px 12px;
-            margin: 5px 0;
+            margin: 10px 0;
         }
-        .nav-grid-atas .grid-container {
+        .nav-grid-bawah .grid-container {
             display: grid;
             grid-template-columns: repeat(5, 1fr);
             gap: 4px;
         }
-        .nav-grid-atas .grid-btn {
+        .nav-grid-bawah .grid-btn {
             padding: 6px 4px;
             border: 1px solid rgba(255, 255, 255, 0.05);
             border-radius: 6px;
@@ -623,22 +623,22 @@
             transition: all 0.3s;
             text-align: center;
         }
-        .nav-grid-atas .grid-btn:hover {
+        .nav-grid-bawah .grid-btn:hover {
             background: rgba(108, 99, 255, 0.1);
             color: #fff;
         }
-        .nav-grid-atas .grid-btn.done {
+        .nav-grid-bawah .grid-btn.done {
             background: rgba(0, 210, 255, 0.1);
             border-color: rgba(0, 210, 255, 0.2);
             color: #00D2FF;
         }
-        .nav-grid-atas .grid-btn.current {
+        .nav-grid-bawah .grid-btn.current {
             background: linear-gradient(135deg, #6C63FF, #FF6584);
             border-color: #6C63FF;
             color: #fff;
             transform: scale(1.05);
         }
-        .nav-grid-atas .label-nav {
+        .nav-grid-bawah .label-nav {
             text-align: center;
             font-size: 0.65rem;
             color: rgba(255, 255, 255, 0.3);
@@ -929,7 +929,7 @@
         /* ===== RESPONSIVE ===== */
         @media (max-width: 992px) {
             .col-lg-3 .nav-card { display: none; }
-            .nav-grid-atas { display: block; }
+            .nav-grid-bawah { display: block; }
             .main-soal { margin-top: 120px; }
         }
         @media (max-width: 768px) {
@@ -966,7 +966,7 @@
                 padding: 10px 8px;
                 min-width: 60px;
             }
-            .nav-grid-atas .grid-btn {
+            .nav-grid-bawah .grid-btn {
                 font-size: 0.65rem;
                 padding: 5px 3px;
             }
@@ -1037,14 +1037,6 @@
                     <span><i class="fas fa-chart-line"></i> Progress: <strong id="progressText">0%</strong></span>
                 </div>
                 <div class="progress-bar-custom"><div class="progress-fill" id="progressBar"></div></div>
-            </div>
-        </div>
-
-        <!-- ===== NAVIGASI GRID DI ATAS (HP) ===== -->
-        <div class="container">
-            <div class="nav-grid-atas" id="navGridAtas">
-                <div class="label-nav"><i class="fas fa-th"></i> LOMBAT KE SOAL</div>
-                <div class="grid-container" id="gridContainerAtas"></div>
             </div>
         </div>
 
@@ -1497,12 +1489,10 @@
         function renderSoal() {
             const container = document.getElementById('daftarSoal');
             const navigasi = document.getElementById('navigasiSoal');
-            const gridAtas = document.getElementById('gridContainerAtas');
             if (!container) return;
             document.getElementById('totalSoalCount').textContent = totalSoal;
             container.innerHTML = '';
             navigasi.innerHTML = '';
-            gridAtas.innerHTML = '';
 
             soalData.forEach((soal, index) => {
                 const div = document.createElement('div');
@@ -1557,6 +1547,15 @@
                     html += `</tbody></table>`;
                 }
 
+                // ===== NAVIGASI GRID (HP) DI BAWAH SOAL =====
+                html += `
+                    <div class="nav-grid-bawah" id="navGridBawah-${index}">
+                        <div class="label-nav"><i class="fas fa-th"></i> LOMBAT KE SOAL</div>
+                        <div class="grid-container" id="gridContainerBawah-${index}"></div>
+                    </div>
+                `;
+
+                // ===== TOMBOL NAVIGASI BAWAH =====
                 html += `
                     <div class="nav-bawah">
                         <button class="btn-prev" onclick="pindahSoal(${index - 1})" ${index === 0 ? 'disabled' : ''}>
@@ -1574,6 +1573,22 @@
                 div.innerHTML = html;
                 container.appendChild(div);
 
+                // ===== ISI GRID BAWAH =====
+                const gridBawah = document.getElementById(`gridContainerBawah-${index}`);
+                if (gridBawah) {
+                    soalData.forEach((_, idx) => {
+                        const btn = document.createElement('button');
+                        btn.type = 'button';
+                        btn.className = 'grid-btn';
+                        btn.id = `grid-bawah-${idx}`;
+                        btn.textContent = idx + 1;
+                        if (cekStatusSoal(idx)) btn.classList.add('done');
+                        if (idx === index) btn.classList.add('current');
+                        btn.onclick = () => pindahSoal(idx);
+                        gridBawah.appendChild(btn);
+                    });
+                }
+
                 // Navigasi di samping kanan (desktop)
                 const btn = document.createElement('button');
                 btn.type = 'button';
@@ -1583,16 +1598,6 @@
                 if (cekStatusSoal(index)) btn.classList.add('done');
                 btn.onclick = () => pindahSoal(index);
                 navigasi.appendChild(btn);
-
-                // Navigasi grid di atas (HP)
-                const btnAtas = document.createElement('button');
-                btnAtas.type = 'button';
-                btnAtas.className = 'grid-btn';
-                btnAtas.id = `grid-${index}`;
-                btnAtas.textContent = nomor;
-                if (cekStatusSoal(index)) btnAtas.classList.add('done');
-                btnAtas.onclick = () => pindahSoal(index);
-                gridAtas.appendChild(btnAtas);
             });
 
             pindahSoal(0);
@@ -1617,10 +1622,10 @@
             const nav = document.getElementById(`nav-${index}`);
             if (nav) nav.classList.add('current');
             
-            // Update navigasi atas (HP)
+            // Update grid bawah (HP)
             document.querySelectorAll('.grid-btn').forEach(el => el.classList.remove('current'));
-            const gridAtas = document.getElementById(`grid-${index}`);
-            if (gridAtas) gridAtas.classList.add('current');
+            const gridBawah = document.getElementById(`grid-bawah-${index}`);
+            if (gridBawah) gridBawah.classList.add('current');
             
             soalSaatIni = index;
             window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -1637,8 +1642,8 @@
             // Update status di navigasi
             const nav = document.getElementById(`nav-${index}`);
             if (nav) nav.classList.add('done');
-            const gridAtas = document.getElementById(`grid-${index}`);
-            if (gridAtas) gridAtas.classList.add('done');
+            const gridBawah = document.getElementById(`grid-bawah-${index}`);
+            if (gridBawah) gridBawah.classList.add('done');
             
             updateProgress();
             simpanProgress();
@@ -1657,13 +1662,13 @@
             
             // Update status di navigasi
             const nav = document.getElementById(`nav-${index}`);
-            const gridAtas = document.getElementById(`grid-${index}`);
+            const gridBawah = document.getElementById(`grid-bawah-${index}`);
             if (cekStatusSoal(index)) {
                 if (nav) nav.classList.add('done');
-                if (gridAtas) gridAtas.classList.add('done');
+                if (gridBawah) gridBawah.classList.add('done');
             } else {
                 if (nav) nav.classList.remove('done');
-                if (gridAtas) gridAtas.classList.remove('done');
+                if (gridBawah) gridBawah.classList.remove('done');
             }
             
             updateProgress();
