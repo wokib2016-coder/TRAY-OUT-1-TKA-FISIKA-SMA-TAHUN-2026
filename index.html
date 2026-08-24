@@ -1041,11 +1041,9 @@
 
     <script>
         // ================================================================
-        // DATA SOAL - TEKS SOAL DIHAPUS, DIGANTI GAMBAR
-        // OPSI DAN KUNCI JAWABAN TETAP UTUH
+        // DATA SOAL
         // ================================================================
         const soalData = [
-            // SOAL 1 - MCMA
             {
                 id: 1,
                 topik: "Pengukuran",
@@ -1060,7 +1058,6 @@
                     { pernyataan: "Diameter manik-manik E = 10,30 mm", benar: false }
                 ]
             },
-            // SOAL 2
             {
                 id: 2,
                 topik: "Gerak Relatif",
@@ -1076,7 +1073,6 @@
                 ],
                 jawaban: 4
             },
-            // SOAL 3
             {
                 id: 3,
                 topik: "Kinematika",
@@ -1092,7 +1088,6 @@
                 ],
                 jawaban: 3
             },
-            // SOAL 4
             {
                 id: 4,
                 topik: "Kinematika",
@@ -1102,7 +1097,6 @@
                 pilihan: ["150 m", "200 m", "250 m", "300 m", "400 m"],
                 jawaban: 2
             },
-            // SOAL 5
             {
                 id: 5,
                 topik: "Gerak Vertikal",
@@ -1112,7 +1106,6 @@
                 pilihan: ["30 m", "50 m", "75 m", "105 m", "180 m"],
                 jawaban: 3
             },
-            // SOAL 6
             {
                 id: 6,
                 topik: "Gerak Melingkar",
@@ -1128,7 +1121,6 @@
                 ],
                 jawaban: 0
             },
-            // SOAL 7
             {
                 id: 7,
                 topik: "Gerak Parabola",
@@ -1144,7 +1136,6 @@
                 ],
                 jawaban: 2
             },
-            // SOAL 8
             {
                 id: 8,
                 topik: "Hukum Newton",
@@ -1160,7 +1151,6 @@
                 ],
                 jawaban: 2
             },
-            // SOAL 9
             {
                 id: 9,
                 topik: "Dinamika",
@@ -1176,7 +1166,6 @@
                 ],
                 jawaban: 0
             },
-            // SOAL 10
             {
                 id: 10,
                 topik: "Impuls dan Momentum",
@@ -1192,7 +1181,6 @@
                 ],
                 jawaban: 1
             },
-            // SOAL 11
             {
                 id: 11,
                 topik: "Momen Gaya",
@@ -1208,7 +1196,6 @@
                 ],
                 jawaban: 2
             },
-            // SOAL 12
             {
                 id: 12,
                 topik: "Fluida Statis",
@@ -1224,7 +1211,6 @@
                 ],
                 jawaban: 4
             },
-            // SOAL 13
             {
                 id: 13,
                 topik: "Fluida Statis",
@@ -1240,7 +1226,6 @@
                 ],
                 jawaban: 1
             },
-            // SOAL 14 - MCMA
             {
                 id: 14,
                 topik: "Fluida Dinamis",
@@ -1255,7 +1240,6 @@
                     { pernyataan: "Bentuk sayap berubah untuk menghasilkan perubahan gaya angkat", benar: true }
                 ]
             },
-            // SOAL 15
             {
                 id: 15,
                 topik: "Gelombang Bunyi",
@@ -1271,7 +1255,6 @@
                 ],
                 jawaban: 0
             },
-            // SOAL 16
             {
                 id: 16,
                 topik: "Optik",
@@ -1287,7 +1270,6 @@
                 ],
                 jawaban: 3
             },
-            // SOAL 17 - MCMA
             {
                 id: 17,
                 topik: "Optik",
@@ -1301,7 +1283,6 @@
                 ],
                 label: { benar: "Tepat", salah: "Tidak Tepat" }
             },
-            // SOAL 18
             {
                 id: 18,
                 topik: "Kalor",
@@ -1317,7 +1298,6 @@
                 ],
                 jawaban: 2
             },
-            // SOAL 19
             {
                 id: 19,
                 topik: "Kalor",
@@ -1333,7 +1313,6 @@
                 ],
                 jawaban: 0
             },
-            // SOAL 20
             {
                 id: 20,
                 topik: "Termodinamika",
@@ -1343,7 +1322,6 @@
                 pilihan: ["0,5 atmosfer", "1 atmosfer", "2 atmosfer", "4 atmosfer", "6 atmosfer"],
                 jawaban: 3
             },
-            // SOAL 21
             {
                 id: 21,
                 topik: "Termodinamika",
@@ -1359,7 +1337,6 @@
                 ],
                 jawaban: 1
             },
-            // SOAL 22 - MCMA
             {
                 id: 22,
                 topik: "Termodinamika",
@@ -1374,7 +1351,6 @@
                     { pernyataan: "Peningkatan suhu udara berarti peningkatan energi kinetik rata-rata partikel udara di atmosfer", benar: true }
                 ]
             },
-            // SOAL 23
             {
                 id: 23,
                 topik: "Listrik Statis",
@@ -1390,7 +1366,6 @@
                 ],
                 jawaban: 1
             },
-            // SOAL 24
             {
                 id: 24,
                 topik: "Listrik Dinamis",
@@ -1406,7 +1381,6 @@
                 ],
                 jawaban: 0
             },
-            // SOAL 25
             {
                 id: 25,
                 topik: "Listrik Dinamis",
@@ -1519,7 +1493,7 @@
                     html += `</tbody></table>`;
                 }
 
-                // ===== TOMBOL NAVIGASI BAWAH + SELESAI (UNTUK HP) =====
+                // ===== TOMBOL NAVIGASI BAWAH + SELESAI =====
                 html += `
                     <div class="nav-bawah">
                         <button class="btn-prev" onclick="pindahSoal(${index - 1})" ${index === 0 ? 'disabled' : ''}>
