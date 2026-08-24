@@ -597,6 +597,44 @@
             transform: scale(1.05);
         }
 
+        /* ===== TOMBOL NAVIGASI BAWAH (HP) ===== */
+        .nav-bawah {
+            display: flex;
+            justify-content: space-between;
+            gap: 10px;
+            margin-top: 15px;
+        }
+        .nav-bawah button {
+            flex: 1;
+            padding: 12px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-size: 0.9rem;
+        }
+        .nav-bawah button:disabled {
+            opacity: 0.3;
+            cursor: not-allowed;
+        }
+        .btn-prev {
+            background: rgba(255, 255, 255, 0.05);
+            color: #fff;
+        }
+        .btn-prev:hover:not(:disabled) {
+            background: rgba(255, 255, 255, 0.1);
+        }
+        .btn-next {
+            background: linear-gradient(135deg, #6C63FF, #FF6584);
+            color: #fff;
+            border: none !important;
+        }
+        .btn-next:hover:not(:disabled) {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(108, 99, 255, 0.3);
+        }
+
         /* ===== BUTTONS ===== */
         .btn-finish {
             width: 100%;
@@ -864,6 +902,10 @@
             .stat-item.ucapan {
                 grid-column: 1;
             }
+            .nav-bawah button {
+                font-size: 0.8rem;
+                padding: 10px;
+            }
         }
     </style>
 </head>
@@ -998,7 +1040,7 @@
                 id: 1,
                 topik: "Pengukuran",
                 bentuk: "MCMA",
-                soal: "", // TEKS DIHAPUS
+                soal: "",
                 type: "mcma",
                 tabel: [
                     { pernyataan: "Diameter manik-manik A = 8,80 mm", benar: true },
@@ -1467,6 +1509,18 @@
                     html += `</tbody></table>`;
                 }
 
+                // ===== TOMBOL NAVIGASI BAWAH (UNTUK HP) =====
+                html += `
+                    <div class="nav-bawah">
+                        <button class="btn-prev" onclick="pindahSoal(${index - 1})" ${index === 0 ? 'disabled' : ''}>
+                            ⬅ Sebelumnya
+                        </button>
+                        <button class="btn-next" onclick="pindahSoal(${index + 1})" ${index === totalSoal - 1 ? 'disabled' : ''}>
+                            Selanjutnya ➡
+                        </button>
+                    </div>
+                `;
+
                 div.innerHTML = html;
                 container.appendChild(div);
 
@@ -1492,6 +1546,7 @@
         }
 
         function pindahSoal(index) {
+            if (index < 0 || index >= totalSoal) return;
             document.querySelectorAll('.soal-card').forEach(el => el.style.display = 'none');
             const target = document.getElementById(`soal-${index}`);
             if (target) target.style.display = 'block';
@@ -1713,6 +1768,4 @@
     </script>
 </body>
 </html>
-```
 
----
