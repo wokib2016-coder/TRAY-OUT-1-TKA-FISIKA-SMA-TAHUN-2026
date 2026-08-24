@@ -600,19 +600,20 @@
         /* ===== TOMBOL NAVIGASI BAWAH (HP) ===== */
         .nav-bawah {
             display: flex;
-            justify-content: space-between;
-            gap: 10px;
+            gap: 8px;
             margin-top: 15px;
+            flex-wrap: wrap;
         }
         .nav-bawah button {
             flex: 1;
             padding: 12px;
-            border: 1px solid rgba(255, 255, 255, 0.1);
             border-radius: 12px;
             font-weight: 600;
             cursor: pointer;
             transition: all 0.3s;
-            font-size: 0.9rem;
+            font-size: 0.85rem;
+            min-width: 80px;
+            border: none;
         }
         .nav-bawah button:disabled {
             opacity: 0.3;
@@ -621,6 +622,7 @@
         .btn-prev {
             background: rgba(255, 255, 255, 0.05);
             color: #fff;
+            border: 1px solid rgba(255, 255, 255, 0.1) !important;
         }
         .btn-prev:hover:not(:disabled) {
             background: rgba(255, 255, 255, 0.1);
@@ -628,11 +630,18 @@
         .btn-next {
             background: linear-gradient(135deg, #6C63FF, #FF6584);
             color: #fff;
-            border: none !important;
         }
         .btn-next:hover:not(:disabled) {
             transform: translateY(-2px);
             box-shadow: 0 10px 30px rgba(108, 99, 255, 0.3);
+        }
+        .btn-submit {
+            background: linear-gradient(135deg, #00D2FF, #00B894);
+            color: #fff;
+        }
+        .btn-submit:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(0, 210, 255, 0.3);
         }
 
         /* ===== BUTTONS ===== */
@@ -903,8 +912,9 @@
                 grid-column: 1;
             }
             .nav-bawah button {
-                font-size: 0.8rem;
-                padding: 10px;
+                font-size: 0.75rem;
+                padding: 10px 8px;
+                min-width: 60px;
             }
         }
     </style>
@@ -1509,11 +1519,14 @@
                     html += `</tbody></table>`;
                 }
 
-                // ===== TOMBOL NAVIGASI BAWAH (UNTUK HP) =====
+                // ===== TOMBOL NAVIGASI BAWAH + SELESAI (UNTUK HP) =====
                 html += `
                     <div class="nav-bawah">
                         <button class="btn-prev" onclick="pindahSoal(${index - 1})" ${index === 0 ? 'disabled' : ''}>
                             ⬅ Sebelumnya
+                        </button>
+                        <button class="btn-submit" onclick="submitTryout()">
+                            ✅ SELESAI
                         </button>
                         <button class="btn-next" onclick="pindahSoal(${index + 1})" ${index === totalSoal - 1 ? 'disabled' : ''}>
                             Selanjutnya ➡
@@ -1768,4 +1781,3 @@
     </script>
 </body>
 </html>
-
