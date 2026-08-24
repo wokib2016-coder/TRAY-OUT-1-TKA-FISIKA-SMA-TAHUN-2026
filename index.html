@@ -597,6 +597,55 @@
             transform: scale(1.05);
         }
 
+        /* ===== NAVIGASI GRID DI ATAS (HP) ===== */
+        .nav-grid-atas {
+            display: none;
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            border-radius: 12px;
+            padding: 10px 12px;
+            margin: 5px 0;
+        }
+        .nav-grid-atas .grid-container {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 4px;
+        }
+        .nav-grid-atas .grid-btn {
+            padding: 6px 4px;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            border-radius: 6px;
+            background: rgba(255, 255, 255, 0.02);
+            color: rgba(255, 255, 255, 0.3);
+            font-weight: 600;
+            font-size: 0.7rem;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-align: center;
+        }
+        .nav-grid-atas .grid-btn:hover {
+            background: rgba(108, 99, 255, 0.1);
+            color: #fff;
+        }
+        .nav-grid-atas .grid-btn.done {
+            background: rgba(0, 210, 255, 0.1);
+            border-color: rgba(0, 210, 255, 0.2);
+            color: #00D2FF;
+        }
+        .nav-grid-atas .grid-btn.current {
+            background: linear-gradient(135deg, #6C63FF, #FF6584);
+            border-color: #6C63FF;
+            color: #fff;
+            transform: scale(1.05);
+        }
+        .nav-grid-atas .label-nav {
+            text-align: center;
+            font-size: 0.65rem;
+            color: rgba(255, 255, 255, 0.3);
+            margin-bottom: 6px;
+            letter-spacing: 1px;
+        }
+
         /* ===== TOMBOL NAVIGASI BAWAH (HP) ===== */
         .nav-bawah {
             display: flex;
@@ -880,6 +929,7 @@
         /* ===== RESPONSIVE ===== */
         @media (max-width: 992px) {
             .col-lg-3 .nav-card { display: none; }
+            .nav-grid-atas { display: block; }
             .main-soal { margin-top: 120px; }
         }
         @media (max-width: 768px) {
@@ -915,6 +965,10 @@
                 font-size: 0.75rem;
                 padding: 10px 8px;
                 min-width: 60px;
+            }
+            .nav-grid-atas .grid-btn {
+                font-size: 0.65rem;
+                padding: 5px 3px;
             }
         }
     </style>
@@ -983,6 +1037,14 @@
                     <span><i class="fas fa-chart-line"></i> Progress: <strong id="progressText">0%</strong></span>
                 </div>
                 <div class="progress-bar-custom"><div class="progress-fill" id="progressBar"></div></div>
+            </div>
+        </div>
+
+        <!-- ===== NAVIGASI GRID DI ATAS (HP) ===== -->
+        <div class="container">
+            <div class="nav-grid-atas" id="navGridAtas">
+                <div class="label-nav"><i class="fas fa-th"></i> LOMBAT KE SOAL</div>
+                <div class="grid-container" id="gridContainerAtas"></div>
             </div>
         </div>
 
@@ -1435,10 +1497,12 @@
         function renderSoal() {
             const container = document.getElementById('daftarSoal');
             const navigasi = document.getElementById('navigasiSoal');
+            const gridAtas = document.getElementById('gridContainerAtas');
             if (!container) return;
             document.getElementById('totalSoalCount').textContent = totalSoal;
             container.innerHTML = '';
             navigasi.innerHTML = '';
+            gridAtas.innerHTML = '';
 
             soalData.forEach((soal, index) => {
                 const div = document.createElement('div');
@@ -1493,7 +1557,6 @@
                     html += `</tbody></table>`;
                 }
 
-                // ===== TOMBOL NAVIGASI BAWAH + SELESAI =====
                 html += `
                     <div class="nav-bawah">
                         <button class="btn-prev" onclick="pindahSoal(${index - 1})" ${index === 0 ? 'disabled' : ''}>
@@ -1511,6 +1574,7 @@
                 div.innerHTML = html;
                 container.appendChild(div);
 
+                // Navigasi di samping kanan (desktop)
                 const btn = document.createElement('button');
                 btn.type = 'button';
                 btn.className = 'nav-btn';
@@ -1519,6 +1583,16 @@
                 if (cekStatusSoal(index)) btn.classList.add('done');
                 btn.onclick = () => pindahSoal(index);
                 navigasi.appendChild(btn);
+
+                // Navigasi grid di atas (HP)
+                const btnAtas = document.createElement('button');
+                btnAtas.type = 'button';
+                btnAtas.className = 'grid-btn';
+                btnAtas.id = `grid-${index}`;
+                btnAtas.textContent = nomor;
+                if (cekStatusSoal(index)) btnAtas.classList.add('done');
+                btnAtas.onclick = () => pindahSoal(index);
+                gridAtas.appendChild(btnAtas);
             });
 
             pindahSoal(0);
@@ -1537,9 +1611,17 @@
             document.querySelectorAll('.soal-card').forEach(el => el.style.display = 'none');
             const target = document.getElementById(`soal-${index}`);
             if (target) target.style.display = 'block';
+            
+            // Update navigasi samping
             document.querySelectorAll('.nav-btn').forEach(el => el.classList.remove('current'));
             const nav = document.getElementById(`nav-${index}`);
             if (nav) nav.classList.add('current');
+            
+            // Update navigasi atas (HP)
+            document.querySelectorAll('.grid-btn').forEach(el => el.classList.remove('current'));
+            const gridAtas = document.getElementById(`grid-${index}`);
+            if (gridAtas) gridAtas.classList.add('current');
+            
             soalSaatIni = index;
             window.scrollTo({ top: 0, behavior: 'smooth' });
         }
@@ -1551,8 +1633,13 @@
                 if (i === pilihan) { label.classList.add('selected'); label.querySelector('input').checked = true; }
                 else { label.classList.remove('selected'); label.querySelector('input').checked = false; }
             });
+            
+            // Update status di navigasi
             const nav = document.getElementById(`nav-${index}`);
             if (nav) nav.classList.add('done');
+            const gridAtas = document.getElementById(`grid-${index}`);
+            if (gridAtas) gridAtas.classList.add('done');
+            
             updateProgress();
             simpanProgress();
         }
@@ -1567,11 +1654,18 @@
                 if (value === true) btns[0].classList.add('active-benar');
                 else btns[1].classList.add('active-salah');
             }
+            
+            // Update status di navigasi
             const nav = document.getElementById(`nav-${index}`);
-            if (nav) {
-                if (cekStatusSoal(index)) nav.classList.add('done');
-                else nav.classList.remove('done');
+            const gridAtas = document.getElementById(`grid-${index}`);
+            if (cekStatusSoal(index)) {
+                if (nav) nav.classList.add('done');
+                if (gridAtas) gridAtas.classList.add('done');
+            } else {
+                if (nav) nav.classList.remove('done');
+                if (gridAtas) gridAtas.classList.remove('done');
             }
+            
             updateProgress();
             simpanProgress();
         }
